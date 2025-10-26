@@ -9,7 +9,7 @@ pip install -r prerequisites.txt
 ```
 
 ## Single Run
-# Seed value : 42
+## Seed value : 42
 ```bash
 python train.py --activation selu --optimizer adam --lr 0.001 --batch_size 64 --epochs 20
 ```
