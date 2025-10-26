@@ -1,0 +1,79 @@
+# ==============================================================
+# W&B Sweep Configuration File for VGG6 on CIFAR-10
+# Purpose: Hyperparameter tuning using grid search
+# ==============================================================
+
+program: train.py       # The Python training script to execute for each sweep run
+                        # Each run will train a VGG6 model with a different combination
+                        # of hyperparameters.
+
+method: grid            # Sweep method:
+                        # - "grid": try every possible combination (exhaustive)
+                        # - "random": sample a subset of combinations (faster)
+                        # - "bayes": Bayesian optimization (smart search)
+
+metric:
+  name: val_acc         # Metric to monitor. Must match wandb.log key in train.py
+  goal: maximize        # Objective: maximize validation accuracy
+
+# ==============================================================
+# HYPERPARAMETERS TO TUNE
+# ==============================================================
+
+parameters:
+
+  # -----------------------------
+  # Activation function using for this assignment
+  # -----------------------------
+  activation:
+    values: ["relu", "silu", "gelu", "tanh", "sigmoid"]
+    # relu     → Standard choice, fast, good for CNNs
+    # silu     → Smooth ReLU variant (Swish / SiLU)
+    # gelu     → Gaussian Error Linear Unit, used in transformers
+    # tanh     → Smooth, saturating activation (older networks)
+    # sigmoid  → Outputs 0-1 range, can saturate, rarely used in CNNs
+
+  # -----------------------------
+  # Optimizer type
+  # -----------------------------
+  optimizer:
+    values: ["sgd", "nesterov", "adam", "rmsprop", "nadam", "adagrad"]
+    # sgd       → Stochastic Gradient Descent (classic optimizer)
+    # nesterov  → SGD with Nesterov momentum (faster convergence)
+    # adam      → Adaptive optimizer, widely used
+    # rmsprop   → Adaptive optimizer good for CNNs
+    # nadam     → Adam with Nesterov momentum
+    # adagrad   → Adaptive Gradient, good for sparse data
+
+  # -----------------------------
+  # Batch size
+  # -----------------------------
+  batch_size:
+    values: [64, 128]
+    # Smaller batch (64) → noisier gradient, may generalize better
+    # Larger batch (128) → smoother gradient, faster on GPU, more memory
+
+  # -----------------------------
+  # Learning rate
+  # -----------------------------
+  lr:
+    values: [0.1, 0.01, 0.001]
+    # Controls the step size in gradient descent:
+    # 0.1   → aggressive, may overshoot minima
+    # 0.01  → moderate, safe default
+    # 0.001 → stable, slow convergence
+
+  # -----------------------------
+  # Epochs (fixed, not part of sweep)
+  # -----------------------------
+  epochs:
+    value: 30
+    # Each training run will run for 30 epochs
+    # This is fixed for all combinations
+
+# ==============================================================
+## Considering using method: random if you want fewer runs as 
+#  combining all parameters it will have multiple runs
+
+# ==============================================================
+
