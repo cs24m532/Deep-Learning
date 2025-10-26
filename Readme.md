@@ -20,5 +20,6 @@ python -m wandb login
 python -m wandb sweep sweep.yaml
 python -m wandb agent <SWEEP_ID>
 ```
-
+## Output
+Models in ./checkpoints, plots and metrics in W&B.
 
