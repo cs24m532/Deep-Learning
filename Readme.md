@@ -1,5 +1,5 @@
 # VGG6 CIFAR-10 experiments
-# You can open the command prompt and run from there using python
+# Copy all the files in your machines.Open command prompt and run from there using python
 
 ## Seed value : 42
 ## Setup and install required prerequisites
