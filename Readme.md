@@ -1,6 +1,7 @@
 # VGG6 CIFAR-10 experiments
 # You can open the command prompt and run from there using python
 
+## Seed value : 42
 ## Setup and install required prerequisites
 ```bash
 python -m venv venv
@@ -9,7 +10,6 @@ pip install -r prerequisites.txt
 ```
 
 ## Single Run
-## Seed value : 42
 ```bash
 python train.py --activation selu --optimizer adam --lr 0.001 --batch_size 64 --epochs 20
 ```
